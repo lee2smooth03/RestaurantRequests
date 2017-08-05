@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Holy Canoli's</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Holy Canoli's</h1>
+      <h3>The best damn place for canoli's!</h3>
+      <hr>
+      <a href="/add"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-credit-card"></span> Make Reservation </button></a>
+    
+     <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-list-alt"></span> View Tables Here </button>
+
+            </div>
+            </div>
+    
+
+  <script type="text/javascript">
+    $("#search-btn").on("click", function() {
+      var waitList = $("#character-search").val().trim();
+
+      waitList = waitList.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/" + waitList, function(data) {
+        console.log(data);
+        if (data) {
+          $("#Customer").Customer();
+          $("#name").text(data.name);
+          $("#phoneNumber").text(data.phoneNumber);
+          $("#Email").text(data.Email);
+          $("#ID").text(data.ID);
+        }
+        else {
+          $("#name").text("The force is not strong with this one. Your character was not found.");
+          $("#stats").hide();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
